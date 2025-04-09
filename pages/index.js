@@ -1,6 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-
-
+import { useState, useEffect, useContext} from "react";
 import {
   Footer,
   Header,
@@ -11,10 +9,12 @@ import {
   Features,
   Hero,
   Loader,
+  Progress,
   SideBar,
   Team,
   Token,
   TokenInfo,
+  Roadmap,
   Popup,
   TransferToken,
   Owner,
@@ -23,11 +23,10 @@ import {
   UpdateAddress,
   UpdatePrice,
 } from "../Components/index";
-import { TOKEN_ICO_Context } from "../context/index";
+import {TOKEN_ICO_Context} from "../context/TokenICO.json";
 import { shortenAddress } from "../Utils/index";
-import { toast } from "react-hot-toast";
 
-const Index = () => {
+const index = () => {
   const {
     TOKEN_ICO,
     BUY_TOKEN,
@@ -58,39 +57,132 @@ const Index = () => {
   const [openUpdateAddress, setOpenUpdateAddress] = useState(false);
   const [detail, setDetail] = useState();
 
-  useEffect(() => {
-    if (TOKEN_ICO) {
-      const fetchData = async () => {
-        const items = await TOKEN_ICO();
-        console.log(items);
-        setDetail(items);
-      };
-      fetchData();
-    }
-  }, [account]);
+  useEffect(() =>{
+    const fetchData = async () => {
+      const items = await TOKEN_ICO();
+      console.log(items);
 
-  return (
-    <div className="body_wrap">
-      {loader && <Loader />}
-      <Header
-        account={account}
-        CONNECT_WALLET={CONNECT_WALLET}
-        setAccount={setAccount}
-        shortenAddress={shortenAddress}
-        detail={detail}
-        currency={Currency}
-      />
-      <Hero setBuyModel={setBuyModel} account={account} />
-      <About />
-      <Features />
-      <Token />
-      <TokenInfo details={detail} currency={Currency} />
-      <Team />
-      <Faq />
-      <Contact />
-      <Footer />
-    </div>
+      setDetail(items);
+    };
+    fetchData();
+  }, [account]);
+  
+  return(
+    <>
+      <div className="body_wrap">
+        {ownerModel && (
+          <Owner
+            setOwnerModel={setOwnerModel}
+            Currency={Currency}
+            detail={detail}
+            account={account}
+            setTransferModel={setTransferModel}
+            setTransferCurrency={setTransferCurrency}
+            setOpenDonate={setOpenDonate}
+            TOKEN_WITHDRAW={TOKEN_WITHDRAW}
+            setOpenUpdatePice={setOpenUpdatePrice}
+            setOpenUpdateAddress={setOpenUpdateAddress}
+          />
+          )}
+
+          {buyModel && (
+          <Popup
+            setBuyModel={setBuyModel}
+            BUY_TOKEN={BUY_TOKEN}
+            Currency={Currency}
+            detail={detail}
+            account={account}
+            ERC20={ERC20}
+            TOKEN_ADDRESS={TOKEN_ADDRESS}
+            setLoader={setLoader}
+            />
+          )}
+
+          {transferModel && (
+              <TransferToken
+              setTransferModel={setTransferModel}
+              TRANSFER_TOKEN={TRANSFER_TOKEN}
+              ERC20={ERC20}
+              setLoader={setLoader}
+              />
+            )}
+
+          {transferCurrency && (
+            <TransferCurrency
+              setTransferCurrency={setTransferCurrency}
+              TRANSFER_ETHER={TRANSFER_ETHER}
+              detail={detail}
+              currency={Currency}
+              CHECK_ACCOUNT_BALANCE={CHECK_ACCOUNT_BALANCE}
+              setLoader={setLoader}
+            />
+          )}
+
+          {openDonate && (
+            <Donate
+              detail={detail}
+              currency={Currency}
+              setOpenDonate={setOpenDonate}
+              DONATE={DONATE}
+              />
+          )}
+
+          {openUpdatePrice && (
+            <UpdatePrice
+              detail={detail}
+              currency={Currency}
+              setOpenUpdatePrice={setOpenUpdatePrice}
+              UPDATE_TOKEN_PRICE={UPDATE_TOKEN_PRICE}
+              />
+          )}
+
+          {openUpdateAddress && (
+            <UpdateAddress
+              detail={detail}
+              currency={Currency}
+              setOpenUpdateAddress={setOpenUpdateAddress}
+              UPDATE_TOKEN={UPDATE_TOKEN}
+              ERC20={ERC20}
+              setLoader={setLoader}
+            />
+          )}
+          {loader && <Loader />}
+
+          <Header
+              account={account}
+              CONNECT_WALLET={CONNECT_WALLET}
+              setAccount={setAccount}
+              setLoader={setLoader}
+              setOwnerModel={setOwnerModel}
+              shortenAddress={shortenAddress}
+              detail={detail}
+              currency={Currency}
+              ownerModel={ownerModel}
+              />
+              <SideBar/>
+              <Hero
+              setBuyModel={setBuyModel}
+              account={account}
+              CONNECT_WALLET={CONNECT_WALLET}
+              setAccount={setAccount}
+              setLoader={setLoader}
+              detail={detail}
+              addtokenToMetaMask={addtokenToMetaMask}
+              />
+              <About/>
+              <Features/>
+              <Token />
+              <TokenInfo details={detail} currency={Currency} />
+              <Team/>
+              <Faq/>
+              <Contact/>
+              <Footer/>
+
+
+
+      </div>
+    </>
   );
 };
 
-export default Index;
+export default index;
