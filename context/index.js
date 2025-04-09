@@ -15,7 +15,7 @@ import {
     addtokenToMetaMask,
 } from "./constants";
 
-const TOKEN_ICO_Context = createContext();
+export const TOKEN_ICO_Context = createContext();
 
 export const TOKEN_ICO_Provider =({children})=> {
     const DAPP_NAME = "TOKEN_ICO DAPP";

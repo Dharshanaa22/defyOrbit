@@ -11,7 +11,7 @@ import {
   Loader,
   Progress,
   SideBar,
-  Team,
+  // Team,
   Token,
   TokenInfo,
   Roadmap,
@@ -23,8 +23,9 @@ import {
   UpdateAddress,
   UpdatePrice,
 } from "../Components/index";
-import {TOKEN_ICO_Context} from "../context/TokenICO.json";
+import {TOKEN_ICO_Context} from "../context";
 import { shortenAddress } from "../Utils/index";
+// import { useContext } from "react";
 
 const index = () => {
   const {
@@ -80,7 +81,7 @@ const index = () => {
             setTransferCurrency={setTransferCurrency}
             setOpenDonate={setOpenDonate}
             TOKEN_WITHDRAW={TOKEN_WITHDRAW}
-            setOpenUpdatePice={setOpenUpdatePrice}
+            setOpenUpdatePrice={setOpenUpdatePrice}
             setOpenUpdateAddress={setOpenUpdateAddress}
           />
           )}
@@ -173,7 +174,7 @@ const index = () => {
               <Features/>
               <Token />
               <TokenInfo details={detail} currency={Currency} />
-              <Team/>
+              {/* <Team/> */}
               <Faq/>
               <Contact/>
               <Footer/>
