@@ -49,7 +49,9 @@ const Header = ({
   }
 };
   return (
-    <header className="site-header header--transparent ico-header">
+    <header className="site-header header--transparent ico-header"
+    style={{ backgroundColor: "#ffffff", color: "#000000" }}
+    >
       <div className="header__main-wrap">
         <div className="container mxw_1640">
           <div className="header__main ul_li_between">
@@ -136,7 +138,17 @@ const Header = ({
               </div>
             ): (
               <div className="header__account">
-                <a onClick={() => connectMetamask()}>Connect Wallet</a>
+                <a onClick={() => connectMetamask()}
+                 style={{
+                  backgroundColor: "black",
+                  color: "white",
+                  padding: "10px 20px",
+                  borderRadius: "5px",
+                  textDecoration: "none",
+                  cursor: "pointer",
+                  display: "inline-block"
+                }}  
+                >Connect Wallet</a>
               </div>
             ) }
             </div>

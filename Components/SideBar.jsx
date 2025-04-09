@@ -2,7 +2,7 @@ import React from "react";
 
 const SideBar = () => {
   return (
-  <aside className="slide-bar">
+  <aside className="slide-bar" style={{ backgroundColor: "white", color: "black" }}>
     <div className="close-mobile-menu">
       <a href="/" className="tx-close"></a>
     </div>
@@ -22,30 +22,30 @@ const SideBar = () => {
 
       <ul id="mobile-menu-active">
         <li>
-          <a href="/">Home</a>
+          <a href="/" style={{ color: "black" }}>Home</a>
         </li>
         <li>
-          <a href="#about" className="scrollspy-btn">
+          <a href="#about" className="scrollspy-btn"  style={{ color: "black" }}>
             About
           </a>
         </li>
         <li>
-          <a href="#roadmap" className="scrollspy-btn">
+          <a href="#roadmap" className="scrollspy-btn"  style={{ color: "black" }}>
             RoadMap
           </a>
         </li>
         <li>
-          <a href="#team" className="scrollspy-btn">
+          <a href="#team" className="scrollspy-btn"  style={{ color: "black" }}>
             Team
           </a>
         </li>
         <li>
-          <a href="#!" className="">
+          <a href="#!" className=""  style={{ color: "black" }}>
             Blog
           </a>
         </li>
         <li>
-          <a href="#!" className="">
+          <a href="#!" className=""  style={{ color: "black" }}>
             Get In Touch
           </a>
         </li>
