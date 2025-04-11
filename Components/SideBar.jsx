@@ -2,8 +2,9 @@ import React from "react";
 
 const SideBar = () => {
   return (
+    <>
   <aside className="slide-bar" style={{ backgroundColor: "white", color: "black" }}>
-    <div className="close-mobile-menu">
+    <div className="close-mobile-menu" >
       <a href="/" className="tx-close"></a>
     </div>
 
@@ -49,10 +50,12 @@ const SideBar = () => {
             Get In Touch
           </a>
         </li>
-
       </ul>
       </nav>
       </aside>
+
+
+</>
   );
 };
 

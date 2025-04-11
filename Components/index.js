@@ -9,7 +9,7 @@ import Hero from "./Hero";
 import Loader from "./Loader";
 import Progress from "./Progress";
 import SideBar from "./SideBar";
-import Team from "./Team";
+// import Team from "./Team";
 import Token from "./Token";
 import TokenInfo from "./TokenInfo";
 import Roadmap from "./Roadmap";
@@ -36,7 +36,7 @@ export{
     Loader,
     Progress,
     SideBar,
-    Team,
+    // Team,
     Token,
     TokenInfo,
     Roadmap,
