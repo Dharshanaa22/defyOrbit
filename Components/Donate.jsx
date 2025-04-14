@@ -23,7 +23,7 @@ const Donate = ({ detail, currency, setOpenDonate, DONATE,}) => {
           </div>
 
           <p>
-            <strong>Balance:</strong> {details?.maticBal} {currency}
+            <strong>Balance:</strong> {detail?.maticBal} {currency}
           </p>
 
           <div className="ico-contract__btn text-center mt-10">

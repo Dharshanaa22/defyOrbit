@@ -160,7 +160,8 @@ const index = () => {
               currency={Currency}
               ownerModel={ownerModel}
               />
-              <SideBar/>
+              <SideBar setOwnerModel={setOwnerModel}
+              ownerModel={ownerModel}/>
               <Hero
               setBuyModel={setBuyModel}
               account={account}

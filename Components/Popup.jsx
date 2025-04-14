@@ -13,6 +13,7 @@ const Popup = ({
 
   const [amount, setAmount] = useState();
   const [transferToken, setTransferToken] = useState();
+  const [token, setToken] = useState();
 
   
   useEffect(()=> {

@@ -30,11 +30,17 @@ const SideBar = () => {
             About
           </a>
         </li>
-        <li>
-          <a href="#roadmap" className="scrollspy-btn"  style={{ color: "black" }}>
-            RoadMap
-          </a>
-        </li>
+        <li className="scrollspy-btn">
+                    <a
+                      style={{
+                        cursor: "pointer",
+                        color: "white",
+                      }}
+                      onClick={() => setOwnerModel(!ownerModel)}
+                    >
+                      Tools
+                    </a>
+                  </li>
         <li>
           <a href="#team" className="scrollspy-btn"  style={{ color: "black" }}>
             Team
@@ -50,6 +56,7 @@ const SideBar = () => {
             Get In Touch
           </a>
         </li>
+     
       </ul>
       </nav>
       </aside>

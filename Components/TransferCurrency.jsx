@@ -24,7 +24,7 @@ const TransferCurrency = ({
         if(balance == undefined){
           console.log("Kindly pass the token address");
         } else{
-          setTokenDetails(balance);
+          setReceiver(balance);
           console.log(balance);
         }
         setLoader(false);
@@ -57,8 +57,8 @@ const TransferCurrency = ({
                 type="text"
                 placeholder="_receiver"
                 onChange={(e) => (
-                  setToken({
-                    ...tokenDetails,
+                  setTransfer({
+                    ...transfer,
                     _receiver: e.target.value
                   }),
                   setAddress(e.target.value)
@@ -70,7 +70,7 @@ const TransferCurrency = ({
           <div className="col-lg-12">
           <input
                 type="text"
-                placeholder="_sendTo"
+                placeholder="_amount"
                 onChange={(e)=>
                   setTransfer({
                   ...transfer,
@@ -80,7 +80,7 @@ const TransferCurrency = ({
                 />
           </div>
           <p>
-            <strong>Balance:</strong> {details?.maticBal} {currency}
+            <strong>Balance:</strong> {detail?.maticBal} {currency}
           </p>
 
           <div className="ico-contract__btn text-center mt-10">

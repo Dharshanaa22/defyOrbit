@@ -6,10 +6,10 @@ const Contact = () => {
   const notifySuccess = (msg) => toast.success(msg, { duration: 2000});
   const notifyError = (msg) => toast.error(msg, { duration: 2000});
 
-const [state, handleSubmit] = useForm("mzbnzpqr");
+const [state, handleSubmit] = useForm("xyzeooqy");
 
 if (state.succeeded) {
-  notifyError("successfully submitted");
+  notifySuccess("successfully submitted");
   window.location.reload();
 }
 

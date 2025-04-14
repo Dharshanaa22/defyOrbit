@@ -5,12 +5,12 @@ import Web3Modal from "web3modal";
 import tokenICO from "./TokenICO.json";
 import erc20 from "./ERC20.json";
 
-export const TOKEN_ADDRESS = "0x7EF2e0048f5bAeDe046f6BF797943daF4ED8CB47";
+export const TOKEN_ADDRESS = "0x5FD6eB55D12E759a21C09eF703fe0CBa1DC9d88D";
 export const ERC20_ABI = erc20.abi;
 
 export const OWNER_ADDRESS = "0x10D36102e37410dbE0Ea2bd00fe2186917F1f081";
 
-export const CONTRACT_ADDRESS = "0xe361DAb4A794991b9cad10579c4898375973B096";
+export const CONTRACT_ADDRESS = "0x7b96aF9Bd211cBf6BA5b0dd53aa61Dc5806b6AcE";
 export const CONTRACT_ABI = tokenICO.abi;
 
 const networks = {
@@ -180,39 +180,41 @@ catch (error){
 }
 };
 
-export const ERC20 = async()=>{
-  try{
+export const ERC20 = async (ADDRESS) => {
+  try {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
-    const network =  await provider.getNetwork();
-    const singer =  await provider.getSinger();
+    const network = await provider.getNetwork();
+    const singer = provider.getSigner();
 
-    const userAddress = singer.getAddress();
+    const contract = fetchContract(ADDRESS, ERC20_ABI, singer);
+    const userAddress = await signer.getAddress();
     const balance = await contract.balanceOf(userAddress);
 
     const name = await contract.name();
     const symbol = await contract.symbol();
     const totalSupply = await contract.totalSupply();
     const decimals = await contract.decimals();
-    const address = await contract.address;
+    const address = contract.address;
 
-    const token ={
-      address : address,
+    const token = {
+      address: address,
       name: name,
       symbol: symbol,
       decimals: decimals,
-      supply: ethers.utils.formatEther(supply.toString()),
+      supply: ethers.utils.formatEther(totalSupply.toString()),
       balance: ethers.utils.formatEther(balance.toString()),
       chainId: network.chainId,
-    }
+    };
+
     console.log(token);
     return token;
+  } catch (error) {
+    console.log(error);
   }
-catch (error){
-  console.log(error);
-}
 };
+
 
 export const ERC20_CONTRACT = async(CONTRACT_ADDRESS)=>{
   try{
@@ -259,38 +261,69 @@ catch (error){
 }
 };
 
-export const addtokenToMetaMask = async() =>{
-  if(window.ethereum){
-    const tokenDetails = await ERC20(TOKEN_ADDRESS);
+export const addtokenToMetaMask = async() => {
+  try {
+    if(!window.ethereum) {
+      return "Please install MetaMask extension";
+    }
 
-    const tokenDecimals = tokenDetails?.decimals;
-    const tokenAddress = TOKEN_ADDRESS;
-    const tokenSymbol = tokenDetails?.symbol;
-    const tokenImage = "";
+    // Verify and switch network
+    try {
+      await handleNetworkSwitch();
+      const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+      if(chainId !== '0x4268') { // Holesky chainId
+        return "Please switch to Holesky network in MetaMask";
+      }
+    } catch(networkError) {
+      console.error("Network switch failed:", networkError);
+      return "Failed to switch network. Please try again";
+    }
 
-    try{
-      const wasAdded = await window.ethereum.request({
+    // Get token details with retry
+    let tokenDetails;
+    let retries = 3;
+    
+    while(retries > 0) {
+      try {
+        tokenDetails = await ERC20(TOKEN_ADDRESS);
+        if(tokenDetails) break;
+      } catch(erc20Error) {
+        console.error(`ERC20 fetch attempt ${4-retries} failed:`, erc20Error);
+        retries--;
+        if(retries === 0) {
+          return "Failed to get token details after multiple attempts";
+        }
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1s between retries
+      }
+    }
+
+    const tokenImage = "https://www.daulathussain.com/wp-content/uploads/2024/05/theblockchaincoders.jpg";
+
+    try {
+      const result = await window.ethereum.request({
         method: "wallet_watchAsset",
         params: {
           type: "ERC20",
-          options:{
-            address: tokenAddress,
-            symbol: tokenSymbol,
-            decimals: tokenDecimals,
+          options: {
+            address: TOKEN_ADDRESS,
+            symbol: tokenDetails.symbol,
+            decimals: tokenDetails.decimals,
             image: tokenImage,
           },
         },
       });
 
-      if(wasAdded){
-        return "Token added!";
-      } else{
-        return "Token not added";
+      if(result) {
+        return "Token successfully added to your wallet!";
       }
-    } catch(error){
-      return "failed to add";
+      return "Token addition was cancelled";
+    } catch(apiError) {
+      console.error("MetaMask API error:", apiError);
+      return "MetaMask error. Please try again or check console for details";
     }
-  } else{
-    return "MetaMask is not installed";
+
+  } catch(error) {
+    console.error("Unexpected error in addtokenToMetaMask:", error);
+    return "An unexpected error occurred. Please try again later";
   }
 };

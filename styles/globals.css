@@ -5,6 +5,14 @@
 @import url("../public/assets/css/magnific-popup.css");
 @import url("../public/assets/css/main.css");
 
+.hero__content .title span:first-child {
+  color: black;
+}
+
+.hero__content .title span:last-child {
+  color: #4A6FA5; /* Dark blue color */
+}
+
 .new-margin {
   margin-top: 7rem;
 }

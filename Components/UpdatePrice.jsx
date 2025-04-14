@@ -28,13 +28,13 @@ const UpdatePrice = ({
           </div>
 
           <p>
-            <strong>Current Price:</strong> {details?.tokenPrice} {currency} &nbsp; &nbsp; 
+            <strong>Current Price:</strong> {detail?.tokenPrice} {currency} &nbsp; &nbsp; 
             <strong>Token Balance:</strong> {detail?.tokenBal}{" "}
             {detail?.symbol}
           </p>
 
           <div className="ico-contract__btn text-center mt-10">
-            <button onClick={() => UPDATE_TOKEN_PRICE(donateFund)} className="thm-btn" >
+            <button onClick={() => UPDATE_TOKEN_PRICE(price)} className="thm-btn" >
               Update Price
             </button>
           </div>

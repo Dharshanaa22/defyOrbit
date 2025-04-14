@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { createContext } from 'react';
 import { ethers } from "ethers";
 import toast from "react-hot-toast" ;
 
@@ -15,7 +14,7 @@ import {
     addtokenToMetaMask,
 } from "./constants";
 
-export const TOKEN_ICO_Context = createContext();
+export const TOKEN_ICO_Context = React.createContext();
 
 export const TOKEN_ICO_Provider =({children})=> {
     const DAPP_NAME = "TOKEN_ICO DAPP";
@@ -84,12 +83,12 @@ export const TOKEN_ICO_Provider =({children})=> {
 
                 if(availableToken > 1) {
                     const price = ethers.utils.formatEther(
-                        tokenDetails.tokenPrice.toString()
-                    );
+                        tokenDetails.tokenPrice.toString()) *
+                        Number(amount) ;
 
                     const payAmount = ethers.utils.parseUnits(price.toString(), "ether");
 
-                    const transaction = await contract.buyToken(Number(account), {
+                    const transaction = await contract.buyToken(Number(amount), {
                         value: payAmount.toString(),
                         gasLimit: ethers.utils.hexlify(8000000)
                     });
@@ -240,7 +239,7 @@ export const TOKEN_ICO_Provider =({children})=> {
     const TRANSFER_TOKEN = async (transfer) =>{
         try{
             setLoader(true);
-            const { _tokenAddress, _sendTo, _amount }= transfer;
+            const { _tokenAddress,_sendTo, _amount }= transfer;
             const address = await CHECK_WALLET_CONNECTED();
 
             if(address){
@@ -287,8 +286,5 @@ export const TOKEN_ICO_Provider =({children})=> {
         >
             {children}
         </TOKEN_ICO_Context.Provider>
-    )
+    );
 };
-
-
-export default TOKEN_ICO_Context;

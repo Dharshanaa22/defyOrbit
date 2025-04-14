@@ -3,7 +3,7 @@ import { FaPlus } from "react-icons/fa6";
 
 const Owner = ({
   setOwnerModel,
-  Currency,
+  currency,
   detail,
   account,
   setTransferModel,
@@ -21,6 +21,7 @@ const Owner = ({
             <div className="avatar">
               <img src="assets/img/shape/c_shape1.png" alt="" />
             </div>
+
             <div className="team__info text-center mb-20">
               <h3>TOKEN TRANSFER</h3>
               <span>Any ERC 20</span>
@@ -43,7 +44,7 @@ const Owner = ({
             <div className="team__info text-center mb-20">
               <h3>TRANSFER FUND</h3>
               <span>
-                {detail.maticBal.slice(0, 6)}{Currency}
+                {detail?.maticBal.slice(0, 6)}{currency}
               </span>
             </div>
             <div className="team__social ul_li_center">

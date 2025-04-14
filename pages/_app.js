@@ -5,7 +5,8 @@ import { Toaster } from 'react-hot-toast';
 
 export default function App({ Component, pageProps }) {
   return (
-    <TOKEN_ICO_Provider>
+  
+        <TOKEN_ICO_Provider>
       <>
         <Component {...pageProps} />
         <Toaster/>
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }) {
         <script src="assets/js/scrollspy.js"></script>
         <script src="assets/js/main.js"></script>
       </>
-    </TOKEN_ICO_Provider>
+        </TOKEN_ICO_Provider>
+
   );
 }

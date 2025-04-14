@@ -2,13 +2,18 @@ import React, {useState, useEffect } from "react";
 
 const TransferToken = ({
   setTransferModel,
-  Transfer_Token,
+  TRANSFER_TOKEN,
   ERC20,
   setLoader}) => {
 
-  const [transferToken, setTransferToken] = useState();
+  const [token, setToken] = useState({
+    _sendTo:"",
+    _amount:"",
+    _tokenAddress:"",
+  });
 
-  
+  const [tokenDetails, setTokenDetails]= useState();
+  const [transferToken, setTransferToken]=useState();
   useEffect(()=> {
     if(transferToken){
       const loadToken = async()=>{
@@ -48,7 +53,7 @@ const TransferToken = ({
                 placeholder="_tokenAddress"
                 onChange={(e) => (
                   setToken({
-                    ...tokenDetails, 
+                    ...token, 
                     _tokenAddress: e.target.value
                   }),
                   setTransferToken(e.target.value)
@@ -63,7 +68,7 @@ const TransferToken = ({
                 placeholder="_sendTo"
                 onChange={(e)=>
                   setToken({
-                  ...tokenDetails, 
+                  ...token, 
                   _sendTo: e.target.value
                 })
               }
@@ -72,10 +77,10 @@ const TransferToken = ({
           <div className="col-lg-12">
           <input
                 type="text"
-                placeholder="_sendTo"
+                placeholder="_amount"
                 onChange={(e)=>
                   setToken({
-                  ...tokenDetails,
+                  ...token,
                   _amount: e.target.value
                 })
               }
